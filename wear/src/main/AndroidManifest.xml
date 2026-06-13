@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-feature android:name="android.hardware.type.watch" />
+
+    <application
+        android:label="EcoFlow PV"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:theme="@android:style/Theme.DeviceDefault"
+        android:allowBackup="false">
+
+        <!-- apka zależy od telefonu (Data Layer), nie jest standalone -->
+        <meta-data
+            android:name="com.google.android.wearable.standalone"
+            android:value="false" />
+
+        <activity
+            android:name=".WearMainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- nasłuch odpowiedzi telefonu (także przy zamkniętej apce) -->
+        <service
+            android:name=".WatchReadingListenerService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.android.gms.wearable.MESSAGE_RECEIVED" />
+                <data
+                    android:scheme="wear"
+                    android:host="*"
+                    android:pathPrefix="/reading" />
+            </intent-filter>
+        </service>
+
+        <!-- kafelek (Tile) -->
+        <service
+            android:name=".PvTileService"
+            android:exported="true"
+            android:label="EcoFlow PV"
+            android:icon="@mipmap/ic_launcher"
+            android:permission="com.google.android.wearable.permission.BIND_TILE_PROVIDER">
+            <intent-filter>
+                <action android:name="androidx.wear.tiles.action.BIND_TILE_PROVIDER" />
+            </intent-filter>
+            <meta-data
+                android:name="androidx.wear.tiles.PREVIEW"
+                android:resource="@drawable/ic_launcher_foreground" />
+        </service>
+    </application>
+</manifest>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- tarcza słońca -->
+    <path
+        android:pathData="M39,54 A15,15 0 1,0 69,54 A15,15 0 1,0 39,54 Z"
+        android:fillColor="#FFC107" />
+    <!-- promienie -->
+    <path
+        android:pathData="M75,54 L84,54 M68.85,39.15 L75.2,32.8 M54,33 L54,24 M39.15,39.15 L32.8,32.8 M33,54 L24,54 M39.15,68.85 L32.8,75.2 M54,75 L54,84 M68.85,68.85 L75.2,75.2"
+        android:strokeColor="#FFC107"
+        android:strokeWidth="4.5"
+        android:strokeLineCap="round" />
+</vector>
