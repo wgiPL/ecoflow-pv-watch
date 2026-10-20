@@ -6,10 +6,10 @@ import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONObject
+import java.security.SecureRandom
 import java.util.concurrent.TimeUnit
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
-import kotlin.random.Random
 
 /**
  * Minimalny klient EcoFlow IoT Open API.
@@ -27,6 +27,8 @@ class EcoFlowClient(
         .connectTimeout(15, TimeUnit.SECONDS)
         .readTimeout(20, TimeUnit.SECONDS)
         .build()
+
+    private val secureRandom = SecureRandom()
 
     data class Device(val sn: String, val name: String, val online: Boolean)
 
@@ -65,7 +67,7 @@ class EcoFlowClient(
 
     private suspend fun get(path: String, params: Map<String, String> = emptyMap()): JSONObject =
         withContext(Dispatchers.IO) {
-            val nonce = Random.nextInt(100000, 1000000).toString()
+            val nonce = (secureRandom.nextInt(900_000) + 100_000).toString()
             val timestamp = System.currentTimeMillis().toString()
             val signStr = "accessKey=$accessKey&nonce=$nonce&timestamp=$timestamp"
 
